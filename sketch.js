@@ -7,7 +7,8 @@ var box1, pig1;
 var backgroundImg,platform;
 
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+    //backgroundImg = loadImage("sprites/bg.png");
+    getBg();
 }
 
 function setup(){
@@ -43,7 +44,9 @@ function setup(){
 }
 
 function draw(){
+    if(backgroundImg){
     background(backgroundImg);
+    }
     Engine.update(engine);
     //console.log(box2.body.position.x);
     //console.log(box2.body.position.y);
@@ -78,5 +81,20 @@ function mouseReleased(){
 function keyPressed(){
     if(keyCode === 32){
         slingshot.Attach(bird.body)
+    } 
+}
+
+async function getBg(){
+    var Time = await fetch("https://worldtimeapi.org/api/timezone/Asia/Singapore")
+    var JSONDATA = await Time.json()
+    var DateTime = JSONDATA.datetime
+    var hour = DateTime.slice(11,13)
+
+    if(hour>6 && hour<19){
+         bg = ("sprites/bg.png")
     }
+    else {
+        bg = ("sprites/bg2.jpg")
+    }
+     backgroundImg = loadImage(bg);
 }
