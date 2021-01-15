@@ -80,7 +80,9 @@ function mouseReleased(){
 }
 function keyPressed(){
     if(keyCode === 32){
+        Matter.Body.setPosition(bird.body,{x : 200,y : 50})
         slingshot.Attach(bird.body)
+        bird.path = []
     } 
 }
 
